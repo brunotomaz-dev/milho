@@ -5,7 +5,7 @@ class Login extends React.Component {
       return (
         <div>
           <h1>Bem vindo!!!</h1>
-          <h3>Faça seu login para iniciar</h3>
+          <h3>Faça seu login ou crie seu usuário</h3>
           <label>
             <p>Usuário</p>
             <input type="text" />
@@ -16,6 +16,7 @@ class Login extends React.Component {
           </label>
           <div>
           <button>Entrar</button>
+          <button>Criar</button>
           </div>
         </div>
       )
