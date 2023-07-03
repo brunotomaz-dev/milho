@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
+const connection_1 = __importDefault(require("./database/config/connection"));
 const error_middleware_1 = __importDefault(require("./database/middleware/error.middleware"));
 const router_1 = __importDefault(require("./database/routers/router"));
 class App {
@@ -26,8 +27,17 @@ class App {
         this.app.use(error_middleware_1.default);
     }
     start(PORT) {
-        this.app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
+        (0, connection_1.default)()
+            .then(() => {
+            this.app.listen(PORT, () => {
+                console.log(`Server running on port ${PORT}`);
+            });
+        })
+            .catch((err) => {
+            console.log('Connection with database generated an error:\r\n');
+            console.log(err);
+            console.log('\r\n Exiting process... initialization failed');
+            process.exit(0);
         });
     }
 }

@@ -1,5 +1,6 @@
 import express from 'express';
 import 'express-async-errors';
+import connectToDatabase from './database/config/connection';
 import errorMiddleware from './database/middleware/error.middleware';
 import router from './database/routers/router';
 
@@ -27,9 +28,18 @@ class App {
   }
 
   public start(PORT: string | number): void {
-    this.app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
+    connectToDatabase()
+      .then(() => {
+        this.app.listen(PORT, () => {
+          console.log(`Server running on port ${PORT}`);
+        });
+      })
+      .catch((err) => {
+        console.log('Connection with database generated an error:\r\n');
+        console.log(err);
+        console.log('\r\n Exiting process... initialization failed');
+        process.exit(0);
+      });
   }
 }
 
