@@ -5,7 +5,7 @@ class Login extends React.Component {
       return (
         <div>
           <h1>Bem vindo!!!</h1>
-          <h3>Faça seu login para entrar</h3>
+          <h3>Faça seu login para iniciar</h3>
           <label>
             <p>Usuário</p>
             <input type="text" />
