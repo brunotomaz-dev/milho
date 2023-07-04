@@ -1,4 +1,4 @@
-import { Model, Schema, isValidObjectId, model } from 'mongoose';
+import { Model, Schema, UpdateQuery, isValidObjectId, model } from 'mongoose';
 import IUser from '../interface/IUser';
 import IUserODM from '../interface/IUser.ODM';
 
@@ -27,7 +27,11 @@ class UserODM implements IUserODM {
 
   public async update(id: number, user: IUser): Promise<IUser | null> {
     if (isValidObjectId(id)) {
-      return this._model.findByIdAndUpdate(id, { ...user });
+      return this._model.findByIdAndUpdate(
+        id,
+        { ...user } as UpdateQuery<IUser>,
+        { new: true },
+      );
     }
     throw new Error('Invalid ObjectId');
   }
