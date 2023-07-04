@@ -19,12 +19,6 @@ class NewUserService {
     if (!userCreated) throw new errors.BadRequestError('User not created');
     return NewUserService.createUserDomain(userCreated);
   }
-
-  public async read(email: string): Promise<User | null> {
-    const user = await this._userModel.read(email);
-    if (!user) return null;
-    return NewUserService.createUserDomain(user);
-  }
 }
 
 export default NewUserService;
