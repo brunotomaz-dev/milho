@@ -1,0 +1,21 @@
+[
+    {
+        "_id": "8bd0d01d-70cc-4d68-a162-697f71983e80",
+        "colId": "history",
+        "containerId": "",
+        "name": "localhost:3001/auth/signup",
+        "url": "localhost:3001/auth/signup",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2023-07-04T19:46:19.624Z",
+        "modified": "2023-07-04T19:46:19.624Z",
+        "headers": [],
+        "params": [],
+        "body": {
+            "type": "json",
+            "raw": "{\n  \"name\": \"Bruno Tomaz\",\n  \"email\": \"tomaz.bruno@gmail.com\",\n  \"password\": \"12345\"\n}",
+            "form": []
+        },
+        "tests": []
+    }
+]
