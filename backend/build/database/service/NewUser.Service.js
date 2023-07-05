@@ -29,6 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const errors = __importStar(require("restify-errors"));
 const User_1 = __importDefault(require("../domains/User"));
+const jwt_utils_1 = require("../jwt/jwt.utils");
 const User_ODM_1 = __importDefault(require("../model/User.ODM"));
 const validations_1 = require("../utils/validations");
 class NewUserService {
@@ -48,7 +49,8 @@ class NewUserService {
         const userCreated = await this._userModel.create({ ...user, password: hashedPassword });
         if (!userCreated)
             throw new errors.BadRequestError('User not created');
-        return NewUserService.createUserDomain(userCreated);
+        const newUser = NewUserService.createUserDomain(userCreated);
+        return (0, jwt_utils_1.createToken)(newUser);
     }
 }
 exports.default = NewUserService;

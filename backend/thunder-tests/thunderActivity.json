@@ -17,5 +17,43 @@
             "form": []
         },
         "tests": []
+    },
+    {
+        "_id": "419a8176-ff55-4b1a-adbd-dbaed0e16925",
+        "colId": "history",
+        "containerId": "",
+        "name": "localhost:3001/auth",
+        "url": "localhost:3001/auth",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2023-07-05T16:36:37.686Z",
+        "modified": "2023-07-05T16:36:37.686Z",
+        "headers": [],
+        "params": [],
+        "body": {
+            "type": "json",
+            "raw": "{\n\"email\": \"tomaz.bruno@gmail.com\",\n\"password\": \"12345\"\n}",
+            "form": []
+        },
+        "tests": []
+    },
+    {
+        "_id": "ce1fff3e-b0ad-4cb0-995e-71d8396c135f",
+        "colId": "history",
+        "containerId": "",
+        "name": "localhost:3001/auth/validate",
+        "url": "localhost:3001/auth/validate",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2023-07-05T16:38:05.146Z",
+        "modified": "2023-07-05T16:38:05.146Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRvbWF6LmJydW5vQGdtYWlsLmNvbSIsIm5hbWUiOiJCcnVubyBUb21heiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg4NTc0OTk3LCJleHAiOjE2ODg1OTI5OTd9.U69qWIMasJdhG92epifFo-d54_WChsyg0WrdbwuQlxo"
+            }
+        ],
+        "params": [],
+        "tests": []
     }
 ]

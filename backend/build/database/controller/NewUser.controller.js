@@ -19,7 +19,7 @@ class NewUserController {
             role: this.req.body.role || 'user',
         };
         const token = await this._newUserService.create(user);
-        this.res.status(201).json(token);
+        this.res.status(201).json({ token });
     }
 }
 exports.default = NewUserController;

@@ -35,10 +35,11 @@ class AuthService {
     return createToken(user);
   }
 
-  public async validateUser(token: string): Promise<IUser> {
+  public async validateUser(token: string): Promise<string> {
     const user = verifyToken(token);
     const userFound = await this._userModel.read(user.email);
-    return userFound as IUser;
+    if (!userFound) throw new errors.NotFoundError('User not found');
+    return userFound.role;
   }
 }
 export default AuthService;
