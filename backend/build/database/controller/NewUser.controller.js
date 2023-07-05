@@ -18,10 +18,6 @@ class NewUserController {
             password: this.req.body.password,
             role: this.req.body.role || 'user',
         };
-        const newUser = await this._newUserService.read(user.email);
-        if (newUser) {
-            this.res.status(200).json({ message: 'User already exists' });
-        }
         const token = await this._newUserService.create(user);
         this.res.status(201).json(token);
     }

@@ -1,8 +1,8 @@
-interface IUser {
+import IUserAuth from './IUserAuth';
+
+interface IUser extends IUserAuth {
   id?: string;
   name: string;
-  email: string;
-  password: string;
   role: 'admin' | 'user';
 }
 

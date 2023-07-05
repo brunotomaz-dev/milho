@@ -26,9 +26,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const errors = __importStar(require("restify-errors"));
 const User_1 = __importDefault(require("../domains/User"));
 const User_ODM_1 = __importDefault(require("../model/User.ODM"));
+const validations_1 = require("../utils/validations");
 class NewUserService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -38,16 +40,15 @@ class NewUserService {
         return new User_1.default(user);
     }
     async create(user) {
-        const userCreated = await this._userModel.create(user);
+        const isValidUser = (0, validations_1.userValidation)(user);
+        if (isValidUser.error)
+            throw new errors.BadRequestError(isValidUser.error.message);
+        const salt = await bcrypt_1.default.genSalt(10);
+        const hashedPassword = await bcrypt_1.default.hash(user.password, salt);
+        const userCreated = await this._userModel.create({ ...user, password: hashedPassword });
         if (!userCreated)
             throw new errors.BadRequestError('User not created');
         return NewUserService.createUserDomain(userCreated);
-    }
-    async read(email) {
-        const user = await this._userModel.read(email);
-        if (!user)
-            return null;
-        return NewUserService.createUserDomain(user);
     }
 }
 exports.default = NewUserService;
