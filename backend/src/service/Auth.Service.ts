@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import * as errors from 'restify-errors';
+import UserODM from '../database/model/User.ODM';
 import IUser from '../interface/IUser';
+import IUserAuth from '../interface/IUserAuth';
 import { createToken, verifyToken } from '../jwt/jwt.utils';
-import UserODM from '../model/User.ODM';
 import { userLoginValidation } from '../utils/validations';
 
 class AuthService {
@@ -29,17 +30,17 @@ class AuthService {
     return user;
   }
 
-  public async login(email: string, password: string): Promise<string> {
-    const user = await this.authUser(email, password);
-
-    return createToken(user);
+  public async login(user: IUserAuth): Promise<string> {
+    const userFound = await this.authUser(user.email, user.password);
+    const token = createToken(userFound);
+    return token;
   }
 
-  public async validateUser(token: string): Promise<string> {
+  public async validateUser(token: string): Promise<{ name: string, role: string }> {
     const user = verifyToken(token);
     const userFound = await this._userModel.read(user.email);
     if (!userFound) throw new errors.NotFoundError('User not found');
-    return userFound.role;
+    return { name: userFound.name, role: userFound.role };
   }
 }
 export default AuthService;

@@ -1,8 +1,8 @@
 import express from 'express';
 import 'express-async-errors';
 import connectToDatabase from './database/config/connection';
-import errorMiddleware from './database/middleware/error.middleware';
-import router from './database/routers/router';
+import errorMiddleware from './middleware/error.middleware';
+import router from './routers/router';
 
 class App {
   public app: express.Express;

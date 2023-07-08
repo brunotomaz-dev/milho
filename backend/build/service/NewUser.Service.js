@@ -28,41 +28,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const errors = __importStar(require("restify-errors"));
+const User_ODM_1 = __importDefault(require("../database/model/User.ODM"));
+const User_1 = __importDefault(require("../domains/User"));
 const jwt_utils_1 = require("../jwt/jwt.utils");
-const User_ODM_1 = __importDefault(require("../model/User.ODM"));
 const validations_1 = require("../utils/validations");
-class AuthService {
+class NewUserService {
     constructor(userModel) {
         this.userModel = userModel;
         this._userModel = userModel || new User_ODM_1.default();
     }
-    static async validatePassword(password, hashedPassword) {
-        return bcrypt_1.default.compare(password, hashedPassword);
+    static createUserDomain(user) {
+        return new User_1.default(user);
     }
-    async authUser(email, password) {
-        const validate = (0, validations_1.userLoginValidation)({ email, password });
-        if (validate.error)
-            throw new errors.BadRequestError(validate.error.message);
-        const user = await this._userModel.read(email);
-        if (!user)
-            throw new errors.NotFoundError('User not found');
-        const validatePassword = await AuthService.validatePassword(password, user.password);
-        if (!validatePassword)
-            throw new errors.UnauthorizedError('Invalid password');
+    static async userValidation(user) {
+        const isValidUser = (0, validations_1.userValidation)(user);
+        if (isValidUser.error)
+            throw new errors.BadRequestError(isValidUser.error.message);
         return user;
     }
-    async login(email, password) {
-        const user = await this.authUser(email, password);
-        const token = (0, jwt_utils_1.createToken)(user);
-        return token;
+    static async passwordHash(password) {
+        const salt = await bcrypt_1.default.genSalt(10);
+        const hashedPassword = await bcrypt_1.default.hash(password, salt);
+        return hashedPassword;
     }
-    async validateUser(token) {
-        const user = (0, jwt_utils_1.verifyToken)(token);
+    async create(user) {
+        await NewUserService.userValidation(user);
+        const hashedPassword = await NewUserService.passwordHash(user.password);
         const userFound = await this._userModel.read(user.email);
-        if (!userFound)
-            throw new errors.NotFoundError('User not found');
-        return { name: userFound.name, role: userFound.role };
+        if (userFound)
+            throw new errors.BadRequestError('User already exists');
+        const userCreated = await this._userModel.create({ ...user, password: hashedPassword });
+        const newUser = NewUserService.createUserDomain(userCreated);
+        return (0, jwt_utils_1.createToken)(newUser);
     }
 }
-exports.default = AuthService;
-//# sourceMappingURL=Auth.Service.js.map
+exports.default = NewUserService;
+//# sourceMappingURL=NewUser.Service.js.map

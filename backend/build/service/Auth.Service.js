@@ -28,8 +28,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const errors = __importStar(require("restify-errors"));
+const User_ODM_1 = __importDefault(require("../database/model/User.ODM"));
 const jwt_utils_1 = require("../jwt/jwt.utils");
-const User_ODM_1 = __importDefault(require("../model/User.ODM"));
 const validations_1 = require("../utils/validations");
 class AuthService {
     constructor(userModel) {
@@ -51,9 +51,9 @@ class AuthService {
             throw new errors.UnauthorizedError('Invalid password');
         return user;
     }
-    async login(email, password) {
-        const user = await this.authUser(email, password);
-        const token = (0, jwt_utils_1.createToken)(user);
+    async login(user) {
+        const userFound = await this.authUser(user.email, user.password);
+        const token = (0, jwt_utils_1.createToken)(userFound);
         return token;
     }
     async validateUser(token) {

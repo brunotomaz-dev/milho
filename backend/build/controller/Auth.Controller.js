@@ -11,8 +11,8 @@ class AuthUser {
         this.res = res;
     }
     async login() {
-        const { email, password } = this.req.body;
-        const token = await this._authService.login(email, password);
+        const user = this.req.body;
+        const token = await this._authService.login(user);
         this.res.status(200).json({ token });
     }
     async validate() {

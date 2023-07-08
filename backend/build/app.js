@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
 const connection_1 = __importDefault(require("./database/config/connection"));
-const error_middleware_1 = __importDefault(require("./database/middleware/error.middleware"));
-const router_1 = __importDefault(require("./database/routers/router"));
+const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
+const router_1 = __importDefault(require("./routers/router"));
 class App {
     constructor() {
         this.app = (0, express_1.default)();

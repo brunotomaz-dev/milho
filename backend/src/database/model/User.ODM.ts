@@ -1,7 +1,6 @@
-import { Model, Schema, UpdateQuery, isValidObjectId, model, models } from 'mongoose';
-import IUser from '../interface/IUser';
-import IUserODM from '../interface/IUser.ODM';
-import HttpException, { StatusCodes } from '../utils/httpException';
+import { Model, Schema, model, models } from 'mongoose';
+import IUser from '../../interface/IUser';
+import IUserODM from '../../interface/IUser.ODM';
 
 class UserODM implements IUserODM {
   protected _model: Model<IUser>;
@@ -25,7 +24,7 @@ class UserODM implements IUserODM {
     return this._model.findOne({ email });
   }
 
-  public async update(id: number, user: IUser): Promise<IUser | null> {
+  /*  public async update(id: number, user: IUser): Promise<IUser | null> {
     if (isValidObjectId(id)) {
       return this._model.findByIdAndUpdate(
         id,
@@ -34,14 +33,14 @@ class UserODM implements IUserODM {
       );
     }
     throw new HttpException(StatusCodes.UNPROCESSED_ENTITY, 'Invalid ObjectId');
-  }
+  } */
 
-  public async delete(id: number): Promise<IUser | null> {
+  /*  public async delete(id: number): Promise<IUser | null> {
     if (isValidObjectId(id)) {
       return this._model.findByIdAndDelete(id);
     }
     throw new HttpException(StatusCodes.UNPROCESSED_ENTITY, 'Invalid ObjectId');
-  }
+  } */
 }
 
 export default UserODM;

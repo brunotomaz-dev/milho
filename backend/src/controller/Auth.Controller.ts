@@ -13,15 +13,15 @@ class AuthUser {
   }
 
   public async login(): Promise<void> {
-    const { email, password } = this.req.body;
-    const token = await this._authService.login(email, password);
+    const user = this.req.body;
+    const token = await this._authService.login(user);
     this.res.status(200).json({ token });
   }
 
   public async validate(): Promise<void> {
     const token = this.req.headers.authorization;
-    const role = await this._authService.validateUser(token as string);
-    this.res.status(200).json({ role });
+    const userData = await this._authService.validateUser(token as string);
+    this.res.status(200).json({ userData });
   }
 }
 
