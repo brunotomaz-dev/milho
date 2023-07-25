@@ -46,7 +46,7 @@ describe('Testes da rota de usuário', () => {
         await newUserService.create(newUser);
       }
       catch (error) {
-        expect(error).to.have.property('statusCode', 400);
+        expect(error).to.have.property('statusCode', 409);
         expect(error).to.have.property('message', 'User already exists');
       }
     });

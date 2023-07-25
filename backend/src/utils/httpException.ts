@@ -1,4 +1,4 @@
-class HttpException extends Error {
+/* class HttpException extends Error {
   statusCode: number;
   constructor(statusCode: number, message: string) {
     super(message);
@@ -18,3 +18,4 @@ export enum StatusCodes {
 }
 
 export default HttpException;
+ */

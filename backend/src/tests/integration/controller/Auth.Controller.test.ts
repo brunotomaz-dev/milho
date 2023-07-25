@@ -144,8 +144,6 @@ describe('Testes de integração do controller Auth', () => {
       .get('/auth/validate')
       .set('Authorization', usersMock.token_2);
 
-      console.log(chaiHttpResponse.body);
-      
       expect(chaiHttpResponse).to.have.status(200);
       expect(chaiHttpResponse.body).to.have.property('name', usersMock.user_2.name);
       expect(chaiHttpResponse.body).to.have.property('role', usersMock.user_2.role);

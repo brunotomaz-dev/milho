@@ -35,7 +35,7 @@ class NewUserService {
     const hashedPassword = await NewUserService.passwordHash(user.password);
 
     const userFound = await this._userModel.read(user.email);
-    if (userFound) throw new errors.BadRequestError('User already exists');
+    if (userFound) throw new errors.ConflictError('User already exists');
 
     const userCreated = await this._userModel.create({ ...user, password: hashedPassword });
 
