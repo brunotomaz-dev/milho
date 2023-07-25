@@ -5,11 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
-const connection_1 = __importDefault(require("./database/config/connection"));
 const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
 const router_1 = __importDefault(require("./routers/router"));
 class App {
-    constructor() {
+    constructor(connectToDatabase) {
+        this.connectToDatabase = connectToDatabase;
         this.app = (0, express_1.default)();
         this.setConfig();
         this.app.get('/', (req, res) => res.json({ message: 'Hello World' }));
@@ -27,7 +27,7 @@ class App {
         this.app.use(error_middleware_1.default);
     }
     start(PORT) {
-        (0, connection_1.default)()
+        this.connectToDatabase()
             .then(() => {
             this.app.listen(PORT, () => {
                 console.log(`Server running on port ${PORT}`);

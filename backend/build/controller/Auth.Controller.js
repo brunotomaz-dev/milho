@@ -18,7 +18,7 @@ class AuthUser {
     async validate() {
         const token = this.req.headers.authorization;
         const userData = await this._authService.validateUser(token);
-        this.res.status(200).json({ userData });
+        this.res.status(200).json(userData);
     }
 }
 exports.default = AuthUser;

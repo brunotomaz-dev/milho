@@ -56,7 +56,7 @@ class NewUserService {
         const hashedPassword = await NewUserService.passwordHash(user.password);
         const userFound = await this._userModel.read(user.email);
         if (userFound)
-            throw new errors.BadRequestError('User already exists');
+            throw new errors.ConflictError('User already exists');
         const userCreated = await this._userModel.create({ ...user, password: hashedPassword });
         const newUser = NewUserService.createUserDomain(userCreated);
         return (0, jwt_utils_1.createToken)(newUser);

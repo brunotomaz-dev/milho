@@ -4,12 +4,13 @@ import { Model } from 'mongoose';
 import * as Sinon from 'sinon';
 import { Response } from 'superagent';
 
-import App from '../../../app';
-import usersMock from '../../mocks/users.mock';
+import App from '../../app';
+import connectToDatabase from '../../database/config/connection';
+import usersMock from '../mocks/users.mock';
 
 chai.use(chaiHttp);
 
-const { app } = new App();
+const { app } = new App(connectToDatabase);
 const { expect } = chai;
 
 describe('Testes de integração do controller NewUser', () => {

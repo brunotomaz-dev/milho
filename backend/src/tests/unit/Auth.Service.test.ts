@@ -1,9 +1,9 @@
 import chai from 'chai';
 import { Model } from 'mongoose';
 import Sinon from 'sinon';
-import AuthService from '../../../service/Auth.Service';
-import NewUserService from '../../../service/NewUser.Service';
-import userMock from '../../mocks/users.mock';
+import AuthService from '../../service/Auth.Service';
+import NewUserService from '../../service/NewUser.Service';
+import userMock from '../mocks/users.mock';
 const { expect } = chai;
 
 describe('Testes da rota de usuário', () => {

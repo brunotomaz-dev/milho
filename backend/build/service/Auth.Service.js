@@ -57,6 +57,8 @@ class AuthService {
         return token;
     }
     async validateUser(token) {
+        if (!token)
+            throw new errors.NotFoundError('token not found');
         const user = (0, jwt_utils_1.verifyToken)(token);
         const userFound = await this._userModel.read(user.email);
         if (!userFound)

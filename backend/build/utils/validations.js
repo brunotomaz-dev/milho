@@ -40,8 +40,8 @@ const userLoginValidation = (user) => {
     const schema = joi.object({
         email: joi.string().email().required(),
         password: joi.string().min(4).required().messages({
-            'string.empty': 'Invalid password',
-            'string.min': 'Invalid password',
+            'string.empty': '"password" is not allowed to be empty',
+            'string.min': '"password" length must be at least 4 characters long',
         }),
     });
     return schema.validate(user);
