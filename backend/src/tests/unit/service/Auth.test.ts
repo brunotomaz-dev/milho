@@ -113,7 +113,7 @@ describe('Testes da rota de usuário', () => {
       }
       catch (error) {
         expect(error).to.have.property('statusCode', 400);
-        expect(error).to.have.property('message', 'Invalid password');
+        expect(error).to.have.property('message', '"password" is not allowed to be empty');
       }
     });
     it('Testa a validação de um token', async () => {

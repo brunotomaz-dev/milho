@@ -37,6 +37,7 @@ class AuthService {
   }
 
   public async validateUser(token: string): Promise<{ name: string, role: string }> {
+    if (!token) throw new errors.NotFoundError('token not found');
     const user = verifyToken(token);
     const userFound = await this._userModel.read(user.email);
     if (!userFound) throw new errors.NotFoundError('User not found');

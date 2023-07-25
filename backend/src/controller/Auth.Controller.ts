@@ -21,7 +21,7 @@ class AuthUser {
   public async validate(): Promise<void> {
     const token = this.req.headers.authorization;
     const userData = await this._authService.validateUser(token as string);
-    this.res.status(200).json({ userData });
+    this.res.status(200).json(userData);
   }
 }
 
