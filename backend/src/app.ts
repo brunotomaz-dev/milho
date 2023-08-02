@@ -1,12 +1,13 @@
 import express from 'express';
 import 'express-async-errors';
+import connectToDatabase from './database/config/connection';
 import errorMiddleware from './middleware/error.middleware';
 import router from './routers/router';
 
 class App {
   public app: express.Express;
 
-  constructor(private connectToDatabase: () => Promise<void>) {
+  constructor() {
     this.app = express();
     this.setConfig();
     this.app.get('/', (req, res) => res.json({ message: 'Hello World' }));
@@ -26,19 +27,18 @@ class App {
     this.app.use(errorMiddleware);
   }
 
-  public start(PORT: string | number): Promise<void> {
-    return this.connectToDatabase()
-      .then(() => new Promise<void>((resolve) => {
+  public start(PORT: string | number): void {
+    connectToDatabase()
+      .then(() => {
         this.app.listen(PORT, () => {
           console.log(`Server running on port ${PORT}`);
-          resolve();
         });
-      }))
+      })
       .catch((err) => {
         console.error('Connection with database generated an error:\r\n');
         console.error(err);
         console.error('\r\n Exiting process... initialization failed');
-        process.exit(1);
+        process.exit(0);
       });
   }
 }

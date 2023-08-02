@@ -27,17 +27,18 @@ class App {
         this.app.use(error_middleware_1.default);
     }
     start(PORT) {
-        this.connectToDatabase()
-            .then(() => {
+        return this.connectToDatabase()
+            .then(() => new Promise((resolve) => {
             this.app.listen(PORT, () => {
                 console.log(`Server running on port ${PORT}`);
+                resolve();
             });
-        })
+        }))
             .catch((err) => {
-            console.log('Connection with database generated an error:\r\n');
-            console.log(err);
-            console.log('\r\n Exiting process... initialization failed');
-            process.exit(0);
+            console.error('Connection with database generated an error:\r\n');
+            console.error(err);
+            console.error('\r\n Exiting process... initialization failed');
+            process.exit(1);
         });
     }
 }
