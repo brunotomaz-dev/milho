@@ -16,7 +16,7 @@ class Login extends React.Component {
             <input type="password" />
           </label>
           <div className="container-login-buttons">
-          <button>Entrar</button>
+          <button>Login</button>
           <button>Criar</button>
           </div>
         </div>
