@@ -7,10 +7,11 @@
     "test": "mocha -r ts-node/register ./src/tests/**/*.test.ts -t 10000 --exit",
     "test:coverage": "nyc npm run test",
     "build": "/bin/sh tsc_eval.sh",
-    "prestart": "npm run build",
+    "prestart": "npm run build && npm run db:seed",
     "start": "node .",
     "predev": "npm run build",
-    "dev": "tsnd src/server.ts"
+    "dev": "tsnd src/server.ts",
+    "db:seed": "ts-node src/database/seed/seed.ts"
   },
   "author": "Bruno Tomaz",
   "license": "ISC",
