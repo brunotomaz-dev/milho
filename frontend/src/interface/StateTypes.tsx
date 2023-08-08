@@ -1,5 +1,10 @@
 export interface ILoginState {
   isButtonDisabled: boolean;
-  user: string;
+  email: string;
   password: string;
+}
+
+export interface ICreateUserState extends ILoginState {
+  user: string;
+  passwordConfirmation: boolean;
 }

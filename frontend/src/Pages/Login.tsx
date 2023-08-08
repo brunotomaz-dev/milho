@@ -1,11 +1,12 @@
 import React from "react";
 import Button from "../components/Button";
 import { ILoginState } from "../interface/StateTypes";
+import validations from "../validations/validations";
 
 class Login extends React.Component {
   state: ILoginState = {
     isButtonDisabled: true,
-    user: '',
+    email: '',
     password: '',
   } // no course foi atualizado para esta forma mais simplificada sem uso do construtor, muito útil caso este componente não precise receber props
 
@@ -16,21 +17,23 @@ class Login extends React.Component {
   }
 
   inputValidation = () => {
-    const { user, password } = this.state;
-
-    const isButtonDisabled = user.length > 3 && password.length > 7 ? false : true;
+    const { email, password } = this.state;
+    const isPasswordValid = validations.validatePassword(password);
+    const isEmailValid = validations.validateEmail(email);
+    const isButtonDisabled = !(isPasswordValid && isEmailValid);
+    
     this.setState({ isButtonDisabled });
   }
   render(): React.ReactNode {
-    const { isButtonDisabled, user, password } = this.state;
+    const { isButtonDisabled, email, password } = this.state;
 
     return (
       <section className="form">
         <h1>Bem vindo!!!</h1>
         <h3>Faça seu login ou crie seu usuário</h3>
         <label>
-          <p>Usuário</p>
-          <input type="text" name="user" value={user} onChange={this.handleInputChange} />
+          <p>Email</p>
+          <input type="text" name="email" value={email} onChange={this.handleInputChange} />
         </label>
         <label>
           <p>Senha</p>
