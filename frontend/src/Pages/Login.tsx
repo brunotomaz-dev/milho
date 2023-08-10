@@ -23,6 +23,7 @@ const Login: React.FC = () => {
     const isButtonDisabled = !(isPasswordValid && isEmailValid);
     
     setButtonDisabled(isButtonDisabled);
+    setMessage('');
   }
 
   const errorHandleAxios = (error: AxiosError) => {
