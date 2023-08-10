@@ -65,7 +65,7 @@ describe('Testes de integração do controller Auth', () => {
       chaiHttpResponse = await chai
       .request(app)
       .post('/auth')
-      .send({...usersMock.loginUser_2, password: '1233'});
+      .send({...usersMock.loginUser_2, password: 'Brazil12'});
 
       expect(chaiHttpResponse).to.have.status(401);
       expect(chaiHttpResponse.body).to.have.property('message', 'Invalid password');
