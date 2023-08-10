@@ -1,51 +1,85 @@
-import React from "react";
-import Button from "../components/Button";
-import { ILoginState } from "../interface/StateTypes";
+import axios, { AxiosError } from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { requestLogin } from "../api/requests";
 import validations from "../validations/validations";
 
-class Login extends React.Component {
-  state: ILoginState = {
-    isButtonDisabled: true,
-    email: '',
-    password: '',
-  } // no course foi atualizado para esta forma mais simplificada sem uso do construtor, muito útil caso este componente não precise receber props
+const Login: React.FC = () => {
+  const [isButtonDisabled, setButtonDisabled] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
-    
-    this.setState({ [name]: value }, () => this.inputValidation());
-  }
+  const navigate = useNavigate();
 
-  inputValidation = () => {
-    const { email, password } = this.state;
+  useEffect(() => {
+    inputValidation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, password]);
+
+  const inputValidation = () => {
     const isPasswordValid = validations.validatePassword(password);
     const isEmailValid = validations.validateEmail(email);
     const isButtonDisabled = !(isPasswordValid && isEmailValid);
     
-    this.setState({ isButtonDisabled });
+    setButtonDisabled(isButtonDisabled);
   }
-  render(): React.ReactNode {
-    const { isButtonDisabled, email, password } = this.state;
 
-    return (
-      <section className="form">
+  const errorHandleAxios = (error: AxiosError) => {
+    const obj = error.response?.data as object;
+    const message = Object.values(obj)[1] as string;
+
+    setMessage(message);
+    setButtonDisabled(true);
+  }
+
+  const loginButton = async () => {
+    try {
+      const response = await requestLogin(email, password);
+      const { token } = response;
+
+      console.log(token);
+      navigate('/config');
+    } catch (error) {
+      axios.isAxiosError(error) ? errorHandleAxios(error) : console.log(error);
+    }
+  }
+
+  return (
+    <section className="form">
         <h1>Bem vindo!!!</h1>
         <h3>Faça seu login ou crie seu usuário</h3>
         <label>
           <p>Email</p>
-          <input type="text" name="email" value={email} onChange={this.handleInputChange} />
+          <input 
+          type="text"
+          name="email"
+          value={email}
+          onChange={({ target: { value } }) => setEmail(value)} />
         </label>
         <label>
           <p>Senha</p>
-          <input type="password" name="password" value={password} onChange={this.handleInputChange} />
+          <input
+          type="password"
+          name="password"
+          placeholder="Possui 8 letras ou números"
+          value={password} 
+          onChange={({ target: { value } }) => setPassword(value)} />
         </label>
         <div className="container-login-buttons">
-        <Button buttonText="Entrar" toPath="/config" disabled={isButtonDisabled} />
-        <Button buttonText="Criar" toPath="/create-user" disabled={false} />
+          <button 
+          type="button" 
+          onClick={loginButton} 
+          disabled={ isButtonDisabled }>Entrar
+          </button>
+          <button 
+          type="button" 
+          onClick={() => navigate('/create-user')} >Criar
+          </button>
         </div>
+        {message && <p>{message}</p>}
       </section>
-    )
-  }
+  )
 }
 
 export default Login;
