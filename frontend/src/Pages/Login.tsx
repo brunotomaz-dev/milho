@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { requestLogin } from "../api/requests";
+import { requestData, requestLogin, setToken } from "../api/requests";
 import validations from "../validations/validations";
 
 const Login: React.FC = () => {
@@ -36,10 +36,16 @@ const Login: React.FC = () => {
 
   const loginButton = async () => {
     try {
-      const response = await requestLogin(email, password);
+      const response = await requestLogin("/auth", { email, password });
       const { token } = response;
 
-      console.log(token);
+      setToken(token);
+
+      const { role } = await requestData("/auth/validate");
+
+      localStorage.setItem('role', role);
+      localStorage.setItem('token', token);
+
       navigate('/config');
     } catch (error) {
       axios.isAxiosError(error) ? errorHandleAxios(error) : console.log(error);

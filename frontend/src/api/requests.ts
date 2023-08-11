@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+type LoginBody = {
+  email: string;
+  password: string;
+};
+
 const HOST = import.meta.env.VITE_HOST;
 const PROTOCOL = import.meta.env.VITE_PROTOCOL;
 
@@ -14,7 +19,12 @@ export const setToken = (token: string) => {
   api.defaults.headers.common["Authorization"] = token;
 };
 
-export const requestLogin = async (email: string, password: string) => {
-  const response = await api.post("/auth", { email, password });
+export const requestLogin = async (endpoint: string, body: LoginBody) => {
+  const response = await api.post(endpoint, body);
+  return response.data;
+}
+
+export const requestData = async (endpoint: string, body?: object) => {
+  const response = await api.get(endpoint, body);
   return response.data;
 }
