@@ -42,8 +42,9 @@ const Login: React.FC = () => {
       navigate('/config');
     } catch (error) {
       axios.isAxiosError(error) ? setMessage(axiosError.axiosErrorMessage(error)) : console.log(error);
-      setButtonDisabled(true);
-    }
+      //axios.isAxiosError(error) ? setMessage(error.message) : console.log(error);
+      setButtonDisabled(true); 
+    } 
   }
 
   return (

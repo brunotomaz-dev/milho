@@ -10,6 +10,5 @@ enum ErrorMessage {
 export const axiosErrorMessage = (error: AxiosError) => {
   const obj = error.response?.data as object;
   const message = Object.values(obj)[1] as string;
-
   return ErrorMessage[message as keyof typeof ErrorMessage] || message;
 }

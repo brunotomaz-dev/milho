@@ -27,10 +27,10 @@ class App {
     this.app.use(errorMiddleware);
   }
 
-  public start(PORT: string | number): void {
+  public start(PORT: number): void {
     connectToDatabase()
       .then(() => {
-        this.app.listen(PORT, () => {
+        this.app.listen(PORT, '0.0.0.0', () => {
           console.log(`Server running on port ${PORT}`);
         });
       })
