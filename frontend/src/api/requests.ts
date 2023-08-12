@@ -3,6 +3,7 @@ import axios from 'axios';
 type LoginBody = {
   email: string;
   password: string;
+  name?: string;
 };
 
 const HOST = import.meta.env.VITE_HOST;

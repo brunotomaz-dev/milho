@@ -38,3 +38,18 @@ select {
   width: 100%;
   color: $black;
 }
+
+.error-container {
+  @include flex-center-column;
+}
+
+.erro-alert {
+  color: $red-dark;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  background-color: $red-light;
+  padding: 0.5rem;
+  border-radius: var(--borderRadius);
+  text-align: center;
+  width: fit-content;
+}

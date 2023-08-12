@@ -1,5 +1,5 @@
 const validateUser = (user: string): boolean => {
-  const regex = /^[a-zA-Z0-9]+$/;
+  const regex = /^[A-Z][A-Za-z]*\s[A-Z][A-Za-z]*$/i;
   return regex.test(user);
 }
 
@@ -17,7 +17,6 @@ const validateAll = (user: string, email: string, password: string): boolean => 
   const isValidUser = validateUser(user);
   const isValidEmail = validateEmail(email);
   const isValidPassword = validatePassword(password);
-
   return isValidUser && isValidEmail && isValidPassword;
 }
 

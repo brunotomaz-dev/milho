@@ -1,7 +1,8 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { requestData, requestLogin, setToken } from "../api/requests";
+import * as axiosError from "../helpers/axiosErrorHandle";
 import validations from "../validations/validations";
 
 const Login: React.FC = () => {
@@ -26,14 +27,6 @@ const Login: React.FC = () => {
     setMessage('');
   }
 
-  const errorHandleAxios = (error: AxiosError) => {
-    const obj = error.response?.data as object;
-    const message = Object.values(obj)[1] as string;
-
-    setMessage(message);
-    setButtonDisabled(true);
-  }
-
   const loginButton = async () => {
     try {
       const response = await requestLogin("/auth", { email, password });
@@ -48,7 +41,8 @@ const Login: React.FC = () => {
 
       navigate('/config');
     } catch (error) {
-      axios.isAxiosError(error) ? errorHandleAxios(error) : console.log(error);
+      axios.isAxiosError(error) ? setMessage(axiosError.axiosErrorMessage(error)) : console.log(error);
+      setButtonDisabled(true);
     }
   }
 
@@ -84,7 +78,7 @@ const Login: React.FC = () => {
           onClick={() => navigate('/create-user')} >Criar
           </button>
         </div>
-        {message && <p>{message}</p>}
+        <div className="error-container">{message && <p className="erro-alert">{message}</p>}</div>
       </section>
   )
 }
