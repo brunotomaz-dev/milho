@@ -30,7 +30,7 @@ const userValidation = (user) => {
     const schema = joi.object({
         email: joi.string().email().required(),
         name: joi.string().required(),
-        password: joi.string().min(4).required(),
+        password: joi.string().min(8).required(),
         role: joi.string().valid('admin', 'user').required(),
     });
     return schema.validate(user);
@@ -39,9 +39,9 @@ exports.userValidation = userValidation;
 const userLoginValidation = (user) => {
     const schema = joi.object({
         email: joi.string().email().required(),
-        password: joi.string().min(4).required().messages({
+        password: joi.string().min(8).required().messages({
             'string.empty': '"password" is not allowed to be empty',
-            'string.min': '"password" length must be at least 4 characters long',
+            'string.min': '"password" length must be at least 8 characters long',
         }),
     });
     return schema.validate(user);

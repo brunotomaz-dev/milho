@@ -1,27 +1,86 @@
-import React from "react";
-import '../styles/login.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { requestData, requestLogin, setToken } from "../api/requests";
+import * as axiosError from "../helpers/axiosErrorHandle";
+import validations from "../validations/validations";
 
-class Login extends React.Component {
-  render(): React.ReactNode {
-      return (
-        <div className="form">
-          <h1>Bem vindo!!!</h1>
-          <h3>Faça seu login ou crie seu usuário</h3>
-          <label>
-            <p>Usuário</p>
-            <input type="text" />
-          </label>
-          <label>
-            <p>Senha</p>
-            <input type="password" />
-          </label>
-          <div className="container-login-buttons">
-          <button>Entrar</button>
-          <button>Criar</button>
-          </div>
-        </div>
-      )
+const Login: React.FC = () => {
+  const [isButtonDisabled, setButtonDisabled] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    inputValidation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, password]);
+
+  const inputValidation = () => {
+    const isPasswordValid = validations.validatePassword(password);
+    const isEmailValid = validations.validateEmail(email);
+    const isButtonDisabled = !(isPasswordValid && isEmailValid);
+    
+    setButtonDisabled(isButtonDisabled);
+    setMessage('');
   }
+
+  const loginButton = async () => {
+    try {
+      const response = await requestLogin("/auth", { email, password });
+      const { token } = response;
+
+      setToken(token);
+
+      const { role } = await requestData("/auth/validate");
+
+      localStorage.setItem('role', role);
+      localStorage.setItem('token', token);
+
+      navigate('/config');
+    } catch (error) {
+      axios.isAxiosError(error) ? setMessage(axiosError.axiosErrorMessage(error)) : console.log(error);
+      setButtonDisabled(true); 
+    } 
+  }
+
+  return (
+    <section className="form">
+        <h1>Bem vindo!!!</h1>
+        <h3>Faça seu login ou crie seu usuário</h3>
+        <label>
+          <p>Email</p>
+          <input 
+          type="text"
+          name="email"
+          value={email}
+          onChange={({ target: { value } }) => setEmail(value)} />
+        </label>
+        <label>
+          <p>Senha</p>
+          <input
+          type="password"
+          name="password"
+          placeholder="Possui 8 letras ou números"
+          value={password} 
+          onChange={({ target: { value } }) => setPassword(value)} />
+        </label>
+        <nav className="container-flex-row">
+          <button 
+          type="button" 
+          onClick={loginButton} 
+          disabled={ isButtonDisabled }>Entrar
+          </button>
+          <button 
+          type="button" 
+          onClick={() => navigate('/create-user')} >Criar
+          </button>
+        </nav>
+        <div className="container-flex-column">{message && <p className="erro-alert">{message}</p>}</div>
+      </section>
+  )
 }
 
 export default Login;
