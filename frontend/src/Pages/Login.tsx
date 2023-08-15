@@ -42,7 +42,6 @@ const Login: React.FC = () => {
       navigate('/config');
     } catch (error) {
       axios.isAxiosError(error) ? setMessage(axiosError.axiosErrorMessage(error)) : console.log(error);
-      //axios.isAxiosError(error) ? setMessage(error.message) : console.log(error);
       setButtonDisabled(true); 
     } 
   }
@@ -68,7 +67,7 @@ const Login: React.FC = () => {
           value={password} 
           onChange={({ target: { value } }) => setPassword(value)} />
         </label>
-        <div className="container-login-buttons">
+        <nav className="container-flex-row">
           <button 
           type="button" 
           onClick={loginButton} 
@@ -78,8 +77,8 @@ const Login: React.FC = () => {
           type="button" 
           onClick={() => navigate('/create-user')} >Criar
           </button>
-        </div>
-        <div className="error-container">{message && <p className="erro-alert">{message}</p>}</div>
+        </nav>
+        <div className="container-flex-column">{message && <p className="erro-alert">{message}</p>}</div>
       </section>
   )
 }

@@ -94,7 +94,7 @@ const CreateUser: React.FC = () => {
       >
       Criar
       </button>
-      <div className='error-container'>{message && <p className='erro-alert'>{message}</p>}</div>
+      <div className='containter-flex-column'>{message && <p className='erro-alert'>{message}</p>}</div>
     </section>
   );
 };
