@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Config() {
+const Config: React.FC = () => {
   const [isAdm, setAdm] = useState(false);
+
+  const navigate = useNavigate();
 
   const getRole = () => {
     const userRole = localStorage.getItem('role');
@@ -22,7 +25,7 @@ function Config() {
         <p className="justify-text">Seus resultados ficarão salvos junto com os 5 melhores. <br/> Se não conseguir responder a pergunta, é uma oportunidade para pesquisar e aumentar seu conhecimento.</p>
       </article>
       <nav className="container-flex-row">
-        <button type="button">Jogar</button>
+        <button type="button" onClick={() => navigate('/game')}>Jogar</button>
         <button type="button">Placar</button>
         {isAdm && <button type="button">Opções de Administrador</button>}
       </nav>
