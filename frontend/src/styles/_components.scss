@@ -20,7 +20,7 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto $accent-color;
 }
 button:disabled {
   cursor: wait;
@@ -59,4 +59,21 @@ select {
 .game-choice-btn {
   font-size: 3em;
   background-color: $grey-dark;
+}
+
+.question-btn {
+  font-size: 1.5em;
+  background-color: $grey-dark;
+  width: 100%;
+  padding: 1rem;
+  border-radius: var(--borderRadius);
+  text-align: center;
+  border: 1px solid $grey-200;
+  color: $blue-accent;
+  transition: background-color 0.25s;
+}
+
+.question-btn:hover {
+  background-color: $black;
+  color: $grey-50;
 }
