@@ -53,49 +53,51 @@ const CreateUser: React.FC = () => {
   };
 
   return (
-    <section className='form'>
-      <h1>Criar usuário</h1>
-      <label htmlFor='user'>
-        <p>Nome</p>
-        <input
-          type='text'
-          name='user'
-          value={name}
-          onChange={({ target: { value } }) => setName(value)}
-        />
-      </label>
-      <label htmlFor='email'>
-        <p>Email</p>
-        <input
-          type='email'
-          name='email'
-          value={email}
-          onChange={({ target: { value } }) => setEmail(value)}
-        />
-      </label>
-      <label>
-        <p>Senha</p>
-        <input
-          type='password'
-          value={password}
-          name='password'
-          placeholder='8 letras ou números'
-          onChange={({ target: { value } }) => setPassword(value)}
-        />
-      </label>
-      <label>
-        <p>Confirmar senha</p>
-        <input type='password' onChange={handlePasswordConfirmation} />
-      </label>
-      <button
-          type='button'
-          disabled={isButtonDisabled}
-          onClick={handleCreateUser}
-      >
-      Criar
-      </button>
-      <div className='containter-flex-column'>{message && <p className='erro-alert'>{message}</p>}</div>
-    </section>
+    <main className="main-container">
+      <section className='form'>
+        <h1>Criar usuário</h1>
+        <label htmlFor='user'>
+          <p>Nome</p>
+          <input
+            type='text'
+            name='user'
+            value={name}
+            onChange={({ target: { value } }) => setName(value)}
+          />
+        </label>
+        <label htmlFor='email'>
+          <p>Email</p>
+          <input
+            type='email'
+            name='email'
+            value={email}
+            onChange={({ target: { value } }) => setEmail(value)}
+          />
+        </label>
+        <label>
+          <p>Senha</p>
+          <input
+            type='password'
+            value={password}
+            name='password'
+            placeholder='8 letras ou números'
+            onChange={({ target: { value } }) => setPassword(value)}
+          />
+        </label>
+        <label>
+          <p>Confirmar senha</p>
+          <input type='password' onChange={handlePasswordConfirmation} />
+        </label>
+        <button
+            type='button'
+            disabled={isButtonDisabled}
+            onClick={handleCreateUser}
+        >
+        Criar
+        </button>
+        <div className='containter-flex-column'>{message && <p className='erro-alert'>{message}</p>}</div>
+      </section>
+    </main>
   );
 };
 

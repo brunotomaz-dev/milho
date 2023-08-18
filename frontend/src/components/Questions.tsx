@@ -4,11 +4,28 @@ import { IGameQuestionsProps } from "../interfaces/IGame";
 const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier }) => {
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [timeRemaining, setTimeRemaining] = useState<number>(30);
 
   useEffect(() => {
     shuffleAnswers(tierQuestions[questionIndex].Options)
+    
+    const timer = setInterval(() => {
+      setTimeRemaining(prevTime => prevTime - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+
   }, [tierQuestions, questionIndex]);
 
+  useEffect(() => {
+    if (timeRemaining === 0) {
+      //alert('Time is up!');
+      setTimeRemaining(30);
+      // enviar para tela com feedback de pontos
+    }
+  }, [timeRemaining]);
 
 
   const shuffleAnswers = (answers: string[]) : void => {
@@ -20,6 +37,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
     const { name } = event.currentTarget;
     if (name === tierQuestions[questionIndex].Answer) {
       alert('Correct Answer!');
+      setTimeRemaining(30);
     } else {
       alert('Wrong Answer!');
     }
@@ -28,7 +46,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
 
   return (
     <>
-      <h3>Game Questions:</h3>
+      <h3>{ timeRemaining }</h3>
       <section className='form'>
         <h2>{ tierQuestions[questionIndex].Question }</h2>
         <div className='container-question-list'>

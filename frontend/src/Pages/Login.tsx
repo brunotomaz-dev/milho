@@ -47,39 +47,41 @@ const Login: React.FC = () => {
   }
 
   return (
-    <section className="form">
-        <h1>Bem vindo!!!</h1>
-        <h3>Faça seu login ou crie seu usuário</h3>
-        <label>
-          <p>Email</p>
-          <input 
-          type="text"
-          name="email"
-          value={email}
-          onChange={({ target: { value } }) => setEmail(value)} />
-        </label>
-        <label>
-          <p>Senha</p>
-          <input
-          type="password"
-          name="password"
-          placeholder="Possui 8 letras ou números"
-          value={password} 
-          onChange={({ target: { value } }) => setPassword(value)} />
-        </label>
-        <nav className="container-flex-row">
-          <button 
-          type="button" 
-          onClick={loginButton} 
-          disabled={ isButtonDisabled }>Entrar
-          </button>
-          <button 
-          type="button" 
-          onClick={() => navigate('/create-user')} >Criar
-          </button>
-        </nav>
-        <div className="container-flex-column">{message && <p className="erro-alert">{message}</p>}</div>
-      </section>
+    <main className="main-container">
+      <section className="form">
+          <h1>Bem vindo!!!</h1>
+          <h3>Faça seu login ou crie seu usuário</h3>
+          <label>
+            <p>Email</p>
+            <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={({ target: { value } }) => setEmail(value)} />
+          </label>
+          <label>
+            <p>Senha</p>
+            <input
+            type="password"
+            name="password"
+            placeholder="Possui 8 letras ou números"
+            value={password}
+            onChange={({ target: { value } }) => setPassword(value)} />
+          </label>
+          <nav className="container-flex-row">
+            <button
+            type="button"
+            onClick={loginButton}
+            disabled={ isButtonDisabled }>Entrar
+            </button>
+            <button
+            type="button"
+            onClick={() => navigate('/create-user')} >Criar
+            </button>
+          </nav>
+          <div className="container-flex-column">{message && <p className="erro-alert">{message}</p>}</div>
+        </section>
+    </main>
   )
 }
 

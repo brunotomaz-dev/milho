@@ -7,14 +7,14 @@ import Login from "./Pages/Login";
 function App() {
 
   return (
-    <main className="main-container">
+    <>
       <Routes>
         <Route path='/' Component={ Login } />
         <Route path='/create-user' Component={ CreateUser } />
         <Route path='/config' Component={ Config } />
         <Route path='/game' Component={ Game } />
       </Routes>
-    </main>
+    </>
   )
 }
 

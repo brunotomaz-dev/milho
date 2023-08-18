@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import simulateQuestions from '../api/simulateDB';
 import Questions from '../components/Questions';
 import { IQuestions } from '../interfaces/IGame';
+import GameHeader from './GameHeader';
 
 const GameIndividual: React.FC = () => {
   const [questionsTier, setQuestionsTier] = useState<IQuestions[]>([]);
@@ -24,8 +25,8 @@ const GameIndividual: React.FC = () => {
 
   return (
     <>
-      <h1>Game Individual - Header</h1>
-      <div className='container-flex-column'>
+      <GameHeader />
+      <div className='game-choice-container'>
         {gameIsOn ? (
           <Questions
             tier={tier}

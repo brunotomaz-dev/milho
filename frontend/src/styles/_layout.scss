@@ -46,3 +46,25 @@
   gap: 1rem;
   width: 100%;
 }
+
+.game-header {
+  position: fixed;
+  gap: 1rem;
+  width: 100vw;
+  border: $grey-dark solid 1px;
+  background-color: $accent-color;
+}
+
+.header-container {
+  @include flex-center-row;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100vw;
+  padding: 1vh;
+  color: $white;
+}
+
+.game-choice-container {
+  @include main;
+  gap: 1rem;
+}
