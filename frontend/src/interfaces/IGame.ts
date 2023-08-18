@@ -10,3 +10,9 @@ export interface IQuestions {
     Answer: string;
     Options: string[];
   }
+
+export interface IGameQuestionsProps {
+  tierQuestions: IQuestions[];
+  tier: number;
+  setTier: Dispatch<SetStateAction<number>>;
+}
