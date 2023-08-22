@@ -17,13 +17,9 @@
 }
 
 .form {
-  padding: 1.7rem;
-  text-align: center;
-  background-color: $grey-dark;
-  border-radius: var(--borderRadius);
+  @include card;
   width: 90vw;
   gap: 1rem;
-  box-shadow: var(--shadow-4);
 }
 
 .justify-text {
@@ -38,4 +34,95 @@
 .container-flex-column {
   @include flex-center-column;
   gap: 1rem;
+}
+
+.container-question-list {
+  @include flex-center-column;
+  padding: 2vh;
+  gap: 1rem;
+  width: 100%;
+}
+
+.game-header {
+  position: fixed;
+  gap: 1rem;
+  width: 100vw;
+  border: $grey-dark solid 1px;
+  background-color: $accent-color;
+}
+
+.header-container {
+  @include flex-center-row;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100vw;
+  padding: 1vh;
+  color: $white;
+}
+
+.game-choice-container {
+  @include main;
+  gap: 1rem;
+}
+
+.feedback {
+  @include card;
+  @include flex-center-column;
+  animation: entranceFade 1s ease 0s 1 normal forwards;
+}
+
+.advance-tier {
+  @include flex-center-column;
+  @include card;
+  gap: 1rem;
+  background-color: $blue;
+  color: $white;
+  animation: entranceForward 3s ease 0s 1 normal forwards;
+}
+
+.win {
+  @include flex-center-column;
+  @include card;
+  gap: 1rem;
+  background-color: darkgoldenrod;
+  color: $grey-dark;
+  animation: entranceForward 3s ease 0s 1 normal forwards;
+}
+
+.congrats {
+  animation: blink 2s ease 0s infinite normal forwards;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes entranceForward {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes entranceFade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
