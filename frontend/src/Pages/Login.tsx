@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { requestData, requestLogin, setToken } from "../api/requests";
 import * as axiosError from "../helpers/axiosErrorHandle";
+import { useAppDispatch } from "../redux/hook/hooks";
+import { addUser } from "../redux/reducers/gameSlice";
 import validations from "../validations/validations";
 
 const Login: React.FC = () => {
@@ -12,6 +14,7 @@ const Login: React.FC = () => {
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     inputValidation();
@@ -34,8 +37,11 @@ const Login: React.FC = () => {
 
       setToken(token);
 
-      const { role } = await requestData("/auth/validate");
+      const { role, name } = await requestData("/auth/validate");
 
+      dispatch(addUser({ name, role }));
+      localStorage.setItem('name', name);
+      localStorage.setItem('email', email);
       localStorage.setItem('role', role);
       localStorage.setItem('token', token);
 
@@ -85,4 +91,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login;
+export default Login

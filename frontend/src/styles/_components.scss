@@ -77,3 +77,47 @@ select {
   background-color: $black;
   color: $grey-50;
 }
+
+.win-btn {
+  background-color: bisque;
+  color: $grey-dark;
+}
+
+.timer {
+  font-size: 2em;
+  color: $grey-200;
+  background-color: $red-dark;
+  padding: 0.5rem;
+  border-radius: 100%;
+  width: 4rem;
+  text-align: center;
+  animation: heartBeat 2s ease 0s infinite normal forwards;
+}
+
+@keyframes heartBeat {
+  0% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+    transform-origin: center center;
+  }
+
+  10% {
+    animation-timing-function: ease-in;
+    transform: scale(0.91);
+  }
+
+  17% {
+    animation-timing-function: ease-out;
+    transform: scale(0.98);
+  }
+
+  33% {
+    animation-timing-function: ease-in;
+    transform: scale(0.87);
+  }
+
+  45% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+  }
+}
