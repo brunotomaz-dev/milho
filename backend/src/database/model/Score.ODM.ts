@@ -23,6 +23,10 @@ class ScoreODM implements IScoreODM {
     return this._model.findOne({ name });
   }
 
+  public async readManyByName(name: string): Promise<IScore[]> {
+    return this._model.find({ name }).sort({ score: -1 }).limit(10);
+  }
+
   public async readAll(): Promise<IScore[]> {
     return this._model.find().sort({ score: -1 }).limit(10);
   }

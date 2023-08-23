@@ -17,6 +17,9 @@ class UserODM {
     async read(email) {
         return this._model.findOne({ email });
     }
+    async readAll() {
+        return this._model.find().select('-password');
+    }
 }
 exports.default = UserODM;
 //# sourceMappingURL=User.ODM.js.map

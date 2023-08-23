@@ -16,6 +16,7 @@ class ScoreService {
 
   public async create(score: IScore): Promise<Score> {
     const scoreCreated = await this._scoreModel.create(score);
+
     if (!scoreCreated) throw new errors.BadRequestError('Score not created');
     const newScore = ScoreService.createScoreDomain(scoreCreated);
     return newScore;
@@ -27,8 +28,8 @@ class ScoreService {
     return scores;
   }
 
-  public async read(name: string): Promise<IScore | null> {
-    const score = await this._scoreModel.read(name);
+  public async read(name: string): Promise<IScore[] | null> {
+    const score = await this._scoreModel.readManyByName(name);
     if (!score) throw new errors.NotFoundError('Score not found');
     return score;
   }
