@@ -3,10 +3,10 @@ import * as errors from 'restify-errors';
 import UserODM from '../database/model/User.ODM';
 import User from '../domains/User';
 import IUser from '../interface/IUser';
-import { createToken } from '../jwt/jwt.utils';
+import { createToken, verifyToken } from '../jwt/jwt.utils';
 import { userValidation } from '../utils/validations';
 
-class NewUserService {
+class UserService {
   private _userModel: UserODM;
 
   constructor(private userModel?: UserODM) {
@@ -30,19 +30,30 @@ class NewUserService {
   }
 
   public async create(user: IUser): Promise<string> {
-    await NewUserService.userValidation(user);
+    await UserService.userValidation(user);
 
-    const hashedPassword = await NewUserService.passwordHash(user.password);
+    const hashedPassword = await UserService.passwordHash(user.password);
 
     const userFound = await this._userModel.read(user.email);
     if (userFound) throw new errors.ConflictError('User already exists');
 
     const userCreated = await this._userModel.create({ ...user, password: hashedPassword });
 
-    const newUser = NewUserService.createUserDomain(userCreated);
+    const newUser = UserService.createUserDomain(userCreated);
 
     return createToken(newUser as unknown as IUser);
   }
+
+  public async readAll(token: string): Promise<IUser[]> {
+    if (!token) throw new errors.NotFoundError('token not found');
+    const user = verifyToken(token);
+    const userFound = await this._userModel.read(user.email);
+    if (!userFound) throw new errors.NotFoundError('User not found');
+    if (userFound.role !== 'admin') throw new errors.UnauthorizedError('User not authorized');
+
+    const users = await this._userModel.readAll();
+    return users;
+  }
 }
 
-export default NewUserService;
+export default UserService;

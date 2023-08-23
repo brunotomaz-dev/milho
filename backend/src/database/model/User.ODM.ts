@@ -24,6 +24,10 @@ class UserODM implements IUserODM {
     return this._model.findOne({ email });
   }
 
+  public async readAll(): Promise<IUser[]> {
+    return this._model.find().select('-password');
+  }
+
   /*  public async update(id: number, user: IUser): Promise<IUser | null> {
     if (isValidObjectId(id)) {
       return this._model.findByIdAndUpdate(
