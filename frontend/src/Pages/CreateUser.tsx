@@ -37,7 +37,7 @@ const CreateUser: React.FC = () => {
 
   const handleCreateUser = async () => {
     try {
-      const { token } = await requestLogin('/auth/new', { name, email, password });
+      const { token } = await requestLogin('/user/new', { name, email, password });
       setToken(token);
 
       const { role } = await requestData('/auth/validate');
