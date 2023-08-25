@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { sendData, setToken } from "../api/requests";
 import { IGameQuestionsProps } from "../interfaces/IGame";
 import { useAppDispatch } from "../redux/hook/hooks";
 import { addPoint } from "../redux/reducers/gameSlice";
@@ -32,11 +33,19 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
 
   }, [tierQuestions, questionIndex]);
 
+  const sendScore = async () : Promise<void> => {
+    const name = localStorage.getItem('name');
+    const token = localStorage.getItem('token');
+    setToken(token as string);
+    await sendData('/score', { name, score });
+  }
+
 
   const wrongAnswer = () : void => {
     setRenderFeedback(true);
     setRenderQuestions(false);
     setIsCorrect(false);
+    sendScore();
     setFeedbackButton('Sair do jogo');
   };
 
@@ -106,6 +115,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
     setQuestionIndex(0);
     dispatch(addPoint(0));
     setClear(false);
+    sendScore();
     navigate('/config');
   }
 

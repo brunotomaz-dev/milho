@@ -27,7 +27,7 @@ const Config: React.FC = () => {
         </article>
         <nav className="container-flex-row">
           <button type="button" onClick={() => navigate('/game')}>Jogar</button>
-          <button type="button">Placar</button>
+          <button type="button" onClick={() => navigate('/score')}>Placar</button>
           {isAdm && <button type="button">Opções de Administrador</button>}
         </nav>
       </section>

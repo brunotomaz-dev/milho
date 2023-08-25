@@ -29,3 +29,8 @@ export const requestData = async (endpoint: string, body?: object) => {
   const response = await api.get(endpoint, body);
   return response.data;
 }
+
+export const sendData = async (endpoint: string, body: object) => {
+  const response = await api.post(endpoint, body);
+  return response.data;
+}
