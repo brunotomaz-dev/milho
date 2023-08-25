@@ -16,6 +16,9 @@ class ScoreODM {
     async read(name) {
         return this._model.findOne({ name });
     }
+    async readManyByName(name) {
+        return this._model.find({ name }).sort({ score: -1 }).limit(10);
+    }
     async readAll() {
         return this._model.find().sort({ score: -1 }).limit(10);
     }

@@ -37,23 +37,8 @@ class ScoreService {
     static createScoreDomain(score) {
         return new Score_1.default(score);
     }
-    static formatScoreDate(score) {
-        const { date } = score;
-        const options = {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            timeZoneName: 'short',
-        };
-        const brazilianDateFormat = new Intl.DateTimeFormat('pt-BR', options).format(date);
-        return { ...score, date: brazilianDateFormat };
-    }
     async create(score) {
-        const formatedScore = ScoreService.formatScoreDate(score);
-        const scoreCreated = await this._scoreModel.create(formatedScore);
+        const scoreCreated = await this._scoreModel.create(score);
         if (!scoreCreated)
             throw new errors.BadRequestError('Score not created');
         const newScore = ScoreService.createScoreDomain(scoreCreated);
@@ -66,7 +51,7 @@ class ScoreService {
         return scores;
     }
     async read(name) {
-        const score = await this._scoreModel.read(name);
+        const score = await this._scoreModel.readManyByName(name);
         if (!score)
             throw new errors.NotFoundError('Score not found');
         return score;
