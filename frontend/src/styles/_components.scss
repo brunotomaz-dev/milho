@@ -121,3 +121,55 @@ select {
     transform: scale(1);
   }
 }
+
+.dot-leader {
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.dot-leader__dots {
+  /* Bottom border */
+  border-bottom: 1px dotted #d1d5db;
+
+  /* Take remaining width */
+  flex: 1;
+
+  /* Spacing */
+  margin: 0 0.25rem;
+}
+
+.dot-container {
+  flex: 1;
+  @include flex-center-row;
+}
+
+.score-list {
+  margin-top: 20px;
+}
+
+.score-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.score-date {
+  flex: 1;
+  text-align: right;
+}
+
+.score-name {
+  flex: 2;
+  text-align: left;
+}
+
+.score-value {
+  flex: 1;
+  text-align: center;
+  color: yellow;
+  text-shadow: $secondary-color 0px 0px 10px;
+}

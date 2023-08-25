@@ -5,13 +5,14 @@ const Config: React.FC = () => {
   const [isAdm, setAdm] = useState(false);
 
   const navigate = useNavigate();
-
+  const name = localStorage.getItem('name') as string;
+  
   const getRole = () => {
     const userRole = localStorage.getItem('role');
-
+    
     userRole === 'admin' ? setAdm(true) : setAdm(false);
   }
-
+  
   useEffect(() => {
     getRole();
   }, []);
@@ -27,7 +28,7 @@ const Config: React.FC = () => {
         </article>
         <nav className="container-flex-row">
           <button type="button" onClick={() => navigate('/game')}>Jogar</button>
-          <button type="button" onClick={() => navigate('/score')}>Placar</button>
+          <button type="button" onClick={() => navigate(`/score/${name}`)}>Placar</button>
           {isAdm && <button type="button">Opções de Administrador</button>}
         </nav>
       </section>

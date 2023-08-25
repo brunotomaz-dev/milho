@@ -3,26 +3,29 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestData, requestLogin, setToken } from '../api/requests';
 import * as axiosError from "../helpers/axiosErrorHandle";
+import { useAppDispatch } from '../redux/hook/hooks';
+import { addUser } from '../redux/reducers/gameSlice';
 import validations from '../validations/validations';
 
 const CreateUser: React.FC = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [name, setName] = useState('');
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState(false);
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     inputValidation();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, email, password, passwordConfirmation]);
+  }, [userName, email, password, passwordConfirmation]);
 
   const inputValidation = () => {
-    const isUserValid = validations.validateAll(name, email, password);
+    const isUserValid = validations.validateAll(userName, email, password);
     const isButtonDisabled = !(isUserValid && passwordConfirmation);
     setIsButtonDisabled(isButtonDisabled);
   };
@@ -37,12 +40,14 @@ const CreateUser: React.FC = () => {
 
   const handleCreateUser = async () => {
     try {
-      const { token } = await requestLogin('/user/new', { name, email, password });
+      const { token } = await requestLogin('/user/new', { name: userName, email, password });
       setToken(token);
 
       const { role } = await requestData('/auth/validate');
       localStorage.setItem('role', role);
       localStorage.setItem('token', token);
+      localStorage.setItem('name', userName);
+      dispatch(addUser({ name: userName, role }));
 
       navigate('/config');
 
@@ -61,8 +66,8 @@ const CreateUser: React.FC = () => {
           <input
             type='text'
             name='user'
-            value={name}
-            onChange={({ target: { value } }) => setName(value)}
+            value={userName}
+            onChange={({ target: { value } }) => setUserName(value)}
           />
         </label>
         <label htmlFor='email'>

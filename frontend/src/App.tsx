@@ -14,7 +14,7 @@ function App() {
         <Route path='/create-user' Component={ CreateUser } />
         <Route path='/config' Component={ Config } />
         <Route path='/game' Component={ Game } />
-        <Route path="/score" Component={ Placar }/>
+        <Route path="/score/:name" Component={ Placar }/>
       </Routes>
     </>
   )

@@ -1,10 +1,10 @@
 const validateUser = (user: string): boolean => {
-  const regex = /^[A-Z][A-Za-z]*\s[A-Z][A-Za-z]*$/i;
+  const regex = /^[A-Z][A-Za-z0-9]*\s[A-Z][A-Za-z0-9]*$/i;
   return regex.test(user);
 }
 
 const validateEmail = (email: string): boolean => {
-  const regex = /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/;
+  const regex = /\b[\w.-_]+@[\w.-_]+\.\w{2,4}\b/;
   return regex.test(email);
 }
 
