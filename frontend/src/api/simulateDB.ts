@@ -150,5 +150,19 @@ const n3 = [
     Options: ['8', '10', '12', '6']
   },
 ];
+const n4 = [
+  {
+    id: 1,
+    Question: "Sua fé era sem 'sem hipocrisia'",
+    Answer: 'Timóteo',
+    Options: ['Timóteo', 'Tito', 'Paulo', 'Pedro']
+  },
+  {
+    id: 2,
+    Question: 'Quem era o pai de Abraão?',
+    Answer: 'Tera',
+    Options: ['Tera', 'Noé', 'Jacó', 'Isaque']
+  },
+];
 
-export default { n1, n2, n3 };
+export default { n1, n2, n3, n4 };

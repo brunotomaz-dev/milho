@@ -147,6 +147,7 @@ select {
 
 .score-list {
   margin-top: 20px;
+  width: 100%;
 }
 
 .score-item {
@@ -172,4 +173,28 @@ select {
   text-align: center;
   color: yellow;
   text-shadow: $secondary-color 0px 0px 10px;
+}
+
+.radio-switch {
+  background-color: $secondary-color;
+  border-radius: 9999px;
+  display: inline-flex;
+  padding: 0.25rem;
+}
+
+.radio-switch__label {
+  border-radius: 9999px;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  color: $grey-dark;
+}
+
+.radio-switch__label--selected {
+  /* For selected radio only */
+  background-color: $accent-color;
+  color: $secondary-color;
+}
+
+.radio-switch__input {
+  display: none;
 }

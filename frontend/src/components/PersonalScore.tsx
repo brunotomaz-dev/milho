@@ -1,24 +1,17 @@
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import React from "react";
-import { IScoreData } from "../interfaces/IScore";
-
-interface IPersonalScoreProps {
-  data: IScoreData[];
-}
-
+import { IPersonalScoreProps } from "../interfaces/IScore";
 
 const PersonalScore: React.FC<IPersonalScoreProps> = ({ data }) => {
-  const name = localStorage.getItem('name');
+  const top7 = data.slice(0, 7);
 
  return (
    <>
-    <section>
-      <h2>{name}</h2>
-      <div className="score-list">
-      <h2>Lista de Pontos</h2>
+    <section className="score-list">
+      <h2>Seus 7 Melhores</h2>
       <ul>
-        {data.map(score => (
+        {top7.map(score => (
           <li key={score._id} className="score-item">
             <span className="score-name">{score.name}</span>
             <span className="score-value">{score.score}</span>
@@ -28,7 +21,6 @@ const PersonalScore: React.FC<IPersonalScoreProps> = ({ data }) => {
           </li>
         ))}
       </ul>
-    </div>
     </section>
    </>
   );

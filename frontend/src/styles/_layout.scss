@@ -19,7 +19,15 @@
 .form {
   @include card;
   width: 90vw;
-  gap: 1rem;
+}
+
+.score-card {
+  @include card;
+  @include flex-center-column;
+  width: 90vw;
+  height: 80vh;
+  gap: 0;
+  justify-content: space-between;
 }
 
 .justify-text {

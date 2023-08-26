@@ -19,12 +19,13 @@ const Config: React.FC = () => {
 
   return (
     <main className="main-container">
-      <section className="form">
+      <section className="form score-card">
         <h1>Quiz Bíblico</h1>
         <article className="game-explanation">
-          <p className="justify-text">O jogo vai trazer perguntas que serão mais difíceis ao avançar algumas rodada. <br/> Cada resposta certa vale uma quantidade de pontos, e existe um bônus de pontos conforme o tempo que foi necessário para responder.
-          </p>
-          <p className="justify-text">Seus resultados ficarão salvos junto com os 5 melhores. <br/> Se não conseguir responder a pergunta, é uma oportunidade para pesquisar e aumentar seu conhecimento.</p>
+          <p className="justify-text">O jogo vai trazer perguntas que serão mais difíceis ao avançar algumas rodada. 
+          <br/> Cada resposta certa vale uma quantidade de pontos, e existe um bônus de pontos conforme o tempo que foi necessário para responder.
+          <br/>Seus resultados ficarão salvos junto com os 5 melhores. 
+          <br/> Se não conseguir responder a pergunta, é uma oportunidade para pesquisar e aumentar seu conhecimento.</p>
         </article>
         <nav className="container-flex-row">
           <button type="button" onClick={() => navigate('/game')}>Jogar</button>
