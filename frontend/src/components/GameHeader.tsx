@@ -7,11 +7,11 @@ const GameHeader: React.FC = () => {
   return (
     <header className='game-header'>
       <div className='header-container'>
-        <h2>{ name }</h2>
-        <h2>{`Pontos: ${ points } ` }</h2>
+        <h2>{name}</h2>
+        <h2>{`Pontos: ${points} `}</h2>
       </div>
     </header>
   );
-}
+};
 
 export default GameHeader;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 interface TimerProps {
   onTimeUp: () => void;
@@ -10,7 +10,7 @@ const Timer: React.FC<TimerProps> = ({ onTimeUp, onTick }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeRemaining(prevTime => {
+      setTimeRemaining((prevTime) => {
         if (prevTime === 1) {
           clearInterval(timer);
           onTimeUp();
@@ -26,7 +26,7 @@ const Timer: React.FC<TimerProps> = ({ onTimeUp, onTick }) => {
     };
   }, [onTimeUp, onTick]);
 
-  return <h3 className="timer">{timeRemaining}</h3>;
+  return <h3 className='timer'>{timeRemaining}</h3>;
 };
 
 export default Timer;

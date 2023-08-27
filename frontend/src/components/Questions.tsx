@@ -46,6 +46,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
     setRenderQuestions(false);
     setIsCorrect(false);
     sendScore();
+    setTier(0);
     setFeedbackButton('Sair do jogo');
   };
 

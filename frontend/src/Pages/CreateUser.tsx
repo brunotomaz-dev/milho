@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestData, requestLogin, setToken } from '../api/requests';
-import * as axiosError from "../helpers/axiosErrorHandle";
+import * as axiosError from '../helpers/axiosErrorHandle';
 import { useAppDispatch } from '../redux/hook/hooks';
 import { addUser } from '../redux/reducers/gameSlice';
 import validations from '../validations/validations';
@@ -18,17 +18,15 @@ const CreateUser: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    inputValidation();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userName, email, password, passwordConfirmation]);
-
-  const inputValidation = () => {
+  const inputValidation = useCallback(() => {
     const isUserValid = validations.validateAll(userName, email, password);
     const isButtonDisabled = !(isUserValid && passwordConfirmation);
     setIsButtonDisabled(isButtonDisabled);
-  };
+  }, [userName, email, password, passwordConfirmation]);
+
+  useEffect(() => {
+    inputValidation();
+  }, [inputValidation]);
 
   const handlePasswordConfirmation = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -40,7 +38,11 @@ const CreateUser: React.FC = () => {
 
   const handleCreateUser = async () => {
     try {
-      const { token } = await requestLogin('/user/new', { name: userName, email, password });
+      const { token } = await requestLogin('/user/new', {
+        name: userName,
+        email,
+        password,
+      });
       setToken(token);
 
       const { role } = await requestData('/auth/validate');
@@ -50,15 +52,16 @@ const CreateUser: React.FC = () => {
       dispatch(addUser({ name: userName, role }));
 
       navigate('/config');
-
     } catch (error) {
-      axios.isAxiosError(error) ? setMessage(axiosError.axiosErrorMessage(error)) : console.log(error);
+      axios.isAxiosError(error)
+        ? setMessage(axiosError.axiosErrorMessage(error))
+        : console.log(error);
       setIsButtonDisabled(true);
     }
   };
 
   return (
-    <main className="main-container">
+    <main className='main-container'>
       <section className='form'>
         <h1>Criar usuário</h1>
         <label htmlFor='user'>
@@ -94,13 +97,15 @@ const CreateUser: React.FC = () => {
           <input type='password' onChange={handlePasswordConfirmation} />
         </label>
         <button
-            type='button'
-            disabled={isButtonDisabled}
-            onClick={handleCreateUser}
+          type='button'
+          disabled={isButtonDisabled}
+          onClick={handleCreateUser}
         >
-        Criar
+          Criar
         </button>
-        <div className='containter-flex-column'>{message && <p className='erro-alert'>{message}</p>}</div>
+        <div className='containter-flex-column'>
+          {message && <p className='erro-alert'>{message}</p>}
+        </div>
       </section>
     </main>
   );

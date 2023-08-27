@@ -17,5 +17,3 @@ export interface IGeneralScoreProps {
   playerScore: IScoreData[];
   generalScore: IScoreData[];
 }
-
-

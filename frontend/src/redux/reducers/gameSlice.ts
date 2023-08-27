@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface GameState {
   points: number;
@@ -8,22 +8,24 @@ interface GameState {
 
 const initialState: GameState = {
   points: 0,
-  name: "",
-  role: ""
+  name: '',
+  role: '',
 };
 
 const gameSlice = createSlice({
-  name: "game",
+  name: 'game',
   initialState,
   reducers: {
     addPoint: (state, action: PayloadAction<number>) => {
-      action.payload === 0 ? state.points = action.payload : state.points += action.payload;
+      action.payload === 0
+        ? (state.points = action.payload)
+        : (state.points += action.payload);
     },
-    addUser: (state, action: PayloadAction<{ name: string, role: string }>) => {
+    addUser: (state, action: PayloadAction<{ name: string; role: string }>) => {
       state.name = action.payload.name;
       state.role = action.payload.role;
-    }
-  }
+    },
+  },
 });
 
 export const { addPoint, addUser } = gameSlice.actions;
