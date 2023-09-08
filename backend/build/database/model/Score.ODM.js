@@ -17,10 +17,10 @@ class ScoreODM {
         return this._model.findOne({ name });
     }
     async readManyByName(name) {
-        return this._model.find({ name }).sort({ score: -1 }).limit(5);
+        return this._model.find({ name }).sort({ score: -1 }).limit(7);
     }
     async readAll() {
-        return this._model.find().sort({ score: -1 }).limit(10);
+        return this._model.find().sort({ score: -1 }).limit(5);
     }
 }
 exports.default = ScoreODM;
