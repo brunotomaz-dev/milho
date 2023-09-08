@@ -48,6 +48,7 @@ class UserService {
     if (!token) throw new errors.NotFoundError('token not found');
     const user = verifyToken(token);
     const userFound = await this._userModel.read(user.email);
+
     if (!userFound) throw new errors.NotFoundError('User not found');
     if (userFound.role !== 'admin') throw new errors.UnauthorizedError('User not authorized');
 
