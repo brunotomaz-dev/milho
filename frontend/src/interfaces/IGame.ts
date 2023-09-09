@@ -6,9 +6,9 @@ export interface IGameProps {
 
 export interface IQuestions {
   id: number;
-  Question: string;
-  Answer: string;
-  Options: string[];
+  question: string;
+  answer: string;
+  options: string[];
 }
 
 export interface IGameQuestionsProps {
