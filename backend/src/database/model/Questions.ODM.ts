@@ -1,5 +1,5 @@
 import { Model, Schema, model, models } from 'mongoose';
-import { IQuestion, IQuestions } from '../../interface/IQuestions';
+import { IQuestion, IQuestionWithId, IQuestions } from '../../interface/IQuestions';
 import { IQuestionsODM } from '../../interface/IQuestions.ODM';
 
 class QuestionsODM implements IQuestionsODM {
@@ -14,10 +14,8 @@ class QuestionsODM implements IQuestionsODM {
     });
 
     this._schema = new Schema<IQuestions>({
-      n1: [questionSchema],
-      n2: [questionSchema],
-      n3: [questionSchema],
-      n4: [questionSchema],
+      tier: { type: String, required: true },
+      questions: [questionSchema],
     });
     this._model = models.Questions || model<IQuestions>('Questions', this._schema);
   }
@@ -26,19 +24,16 @@ class QuestionsODM implements IQuestionsODM {
     return this._model.create({ ...questions });
   }
 
-  public async read(tier: string): Promise<IQuestions | null> {
+  public async read(tier: string): Promise<IQuestion[] | null> {
     return this._model.findOne({ tier });
   }
 
   public async addQuestionToTier(tier: string, question: IQuestion): Promise<IQuestions | null> {
-    return this._model.findOneAndUpdate(
-      { tier },
-      { $addToSet: { [tier]: question } },
-      { new: true },
-    );
+    return this._model
+      .findOneAndUpdate({ tier }, { $addToSet: { questions: question } }, { new: true });
   }
 
-  public async update(tier: string, question: IQuestion): Promise<IQuestions | null> {
+  public async update(tier: string, question: IQuestionWithId): Promise<IQuestions | null> {
     const update = {
       $set: {
         [`${tier}.$[elem].question`]: question.question,

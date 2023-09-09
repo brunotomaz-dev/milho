@@ -1,13 +1,20 @@
 export interface IQuestions {
-  n1: IQuestion[];
-  n2: IQuestion[];
-  n3: IQuestion[];
-  n4: IQuestion[];
+  tier: string;
+  questions: IQuestionWithId[];
+}
+
+export interface IQuestionsSeed {
+  tier: string;
+  questions: IQuestion[];
 }
 
 export interface IQuestion {
-  id: number;
+  id?: string;
   question: string;
   answer: string;
   options: string[];
+}
+
+export interface IQuestionWithId extends IQuestion {
+  id: string;
 }

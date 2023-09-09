@@ -1,6 +1,15 @@
 import IUser from '../../interface/IUser';
+import UserODM from '../model/User.ODM';
 
-const data: IUser[] = [
+let data: IUser[];
+
+class SeedUser extends UserODM {
+  public async seedMany(): Promise<void> {
+    await this._model.insertMany(data);
+  }
+}
+
+data = [
   {
     name: 'Admin',
     email: 'admin@admin.game',
@@ -15,4 +24,4 @@ const data: IUser[] = [
   },
 ];
 
-export default data;
+export default SeedUser;

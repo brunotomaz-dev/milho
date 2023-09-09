@@ -1,6 +1,16 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const data = [
+const User_ODM_1 = __importDefault(require("../model/User.ODM"));
+let data;
+class SeedUser extends User_ODM_1.default {
+    async seedMany() {
+        await this._model.insertMany(data);
+    }
+}
+data = [
     {
         name: 'Admin',
         email: 'admin@admin.game',
@@ -14,5 +24,5 @@ const data = [
         role: 'user',
     },
 ];
-exports.default = data;
+exports.default = SeedUser;
 //# sourceMappingURL=userSeed.js.map

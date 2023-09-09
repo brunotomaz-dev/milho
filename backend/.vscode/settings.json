@@ -3,6 +3,7 @@
     "predev",
     "prestart",
     "sonarjs",
-    "tsnd"
+    "tsnd",
+    "uuidv"
   ]
 }

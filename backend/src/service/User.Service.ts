@@ -3,7 +3,7 @@ import * as errors from 'restify-errors';
 import UserODM from '../database/model/User.ODM';
 import User from '../domains/User';
 import IUser from '../interface/IUser';
-import { createToken, verifyToken } from '../jwt/jwt.utils';
+import { createToken } from '../jwt/jwt.utils';
 import { userValidation } from '../utils/validations';
 
 class UserService {
@@ -44,13 +44,8 @@ class UserService {
     return createToken(newUser as unknown as IUser);
   }
 
-  public async readAll(token: string): Promise<IUser[]> {
-    if (!token) throw new errors.NotFoundError('token not found');
-    const user = verifyToken(token);
-    const userFound = await this._userModel.read(user.email);
-
-    if (!userFound) throw new errors.NotFoundError('User not found');
-    if (userFound.role !== 'admin') throw new errors.UnauthorizedError('User not authorized');
+  public async readAll(role: string): Promise<IUser[]> {
+    if (role !== 'admin') throw new errors.UnauthorizedError('User not authorized');
 
     const users = await this._userModel.readAll();
     return users;
