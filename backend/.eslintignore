@@ -2,7 +2,7 @@ nyc.config.js
 node_modules/
 tests/
 build/
-src/database/seeders
+src/database/seed/questionsData.ts
 src/database/config
 jest.config.js
 jest.d.ts

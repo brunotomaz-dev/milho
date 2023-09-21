@@ -10,7 +10,7 @@ class QuestionsODM implements IQuestionsODM {
     const questionSchema = new Schema<IQuestion>({
       question: { type: String, required: true },
       answer: { type: String, required: true },
-      options: [{ type: [String], required: true }],
+      options: { type: [String], required: true },
     });
 
     this._schema = new Schema<IQuestions>({

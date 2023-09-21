@@ -6,7 +6,7 @@ class QuestionsODM {
         const questionSchema = new mongoose_1.Schema({
             question: { type: String, required: true },
             answer: { type: String, required: true },
-            options: [{ type: [String], required: true }],
+            options: { type: [String], required: true },
         });
         this._schema = new mongoose_1.Schema({
             tier: { type: String, required: true },

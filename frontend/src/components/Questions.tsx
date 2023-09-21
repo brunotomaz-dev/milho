@@ -66,7 +66,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
   }
 
   const shuffleAnswers = (answers: string[]) : void => {
-    const shuffledAnswers = [...answers[0]].sort(() => Math.random() - 0.5);
+    const shuffledAnswers = [...answers].sort(() => Math.random() - 0.5);
     setAnswers(shuffledAnswers);
   }
 
