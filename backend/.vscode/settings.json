@@ -5,5 +5,9 @@
     "sonarjs",
     "tsnd",
     "uuidv"
-  ]
+  ],
+  "material-icon-theme.folders.associations": {
+    "domains": "Private",
+    "seed": "Update",
+  }
 }

@@ -2,11 +2,12 @@ import * as errors from 'restify-errors';
 import ScoreODM from '../database/model/Score.ODM';
 import Score from '../domains/Score';
 import IScore from '../interface/IScore';
+import IScoreODM from '../interface/IScore.ODM';
 
 class ScoreService {
-  private _scoreModel: ScoreODM;
+  private _scoreModel: IScoreODM | ScoreODM;
 
-  constructor(private scoreModel?: ScoreODM) {
+  constructor(private scoreModel?: IScoreODM) {
     this._scoreModel = scoreModel || new ScoreODM();
   }
 

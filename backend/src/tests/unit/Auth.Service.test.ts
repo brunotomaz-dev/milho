@@ -2,7 +2,7 @@ import chai from 'chai';
 import { Model } from 'mongoose';
 import Sinon from 'sinon';
 import AuthService from '../../service/Auth.Service';
-import NewUserService from '../../service/NewUser.Service';
+import UserService from '../../service/User.Service';
 import userMock from '../mocks/users.mock';
 const { expect } = chai;
 
@@ -14,7 +14,7 @@ describe('Testes da rota de usuário', () => {
   it('Deve criar um usuário teste ', async () => {
     const newUser = userMock.newUser_1;
     const mockUserOutput = userMock.user_1;
-    const newUserService = new NewUserService();
+    const newUserService = new UserService();
     Sinon.stub(Model, 'create').resolves([mockUserOutput]);
     Sinon.stub(Model, 'findOne').resolves(null);
 
@@ -26,7 +26,7 @@ describe('Testes da rota de usuário', () => {
 
     it('Deve retornar um erro ao tentar criar um usuário com dados inválidos', async () => {
       const newUser = userMock.newUser_1;
-      const newUserService = new NewUserService();
+      const newUserService = new UserService();
   
       try {
         await newUserService.create({ ...newUser, email: 'email-invalido' });
@@ -39,7 +39,7 @@ describe('Testes da rota de usuário', () => {
 
     it('Deve retornar um erro ao tentar criar um usuário com email já cadastrado', async () => {
       const newUser = userMock.newUser_1;
-      const newUserService = new NewUserService();
+      const newUserService = new UserService();
       Sinon.stub(Model, 'findOne').resolves([newUser]);
   
       try {
