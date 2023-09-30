@@ -18,7 +18,58 @@
 
 .form {
   @include card;
-  width: 90vw;
+
+  @include responsive-test; // para fins de teste
+
+  @include xs {
+    width: 90vw;
+    font-size: 0.7rem;
+  }
+
+  @include sm {
+    width: 80vw;
+    font-size: 1rem;
+  }
+
+  @include md {
+    width: 60vw;
+  }
+  @include lg {
+    width: 50vw;
+  }
+  @include xl {
+    width: 40vw;
+  }
+}
+
+.config-card {
+  @include card;
+  @include flex-center-column;
+  gap: 0;
+  justify-content: space-between;
+
+  @include xs {
+    width: 90vw;
+    font-size: 0.78rem;
+    height: 70vh;
+  }
+
+  @include sm {
+    width: 80vw;
+    font-size: 1rem;
+    height: 55vh;
+  }
+
+  @include md {
+    width: 60vw;
+    height: 50vh;
+  }
+
+  @include lg {
+    width: 50vw;
+    height: 55vh;
+    font-size: 1.2rem;
+  }
 }
 
 .score-card {
@@ -64,13 +115,32 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100vw;
+  height: 10vh;
   padding: 1vh;
   color: $white;
+
+  @include xs {
+    font-size: 0.7rem;
+  }
+
+  @include sm {
+    font-size: 1rem;
+  }
 }
 
 .game-choice-container {
   @include main;
   gap: 1rem;
+
+  @include xs {
+    width: 90vw;
+    font-size: 0.7rem;
+  }
+
+  @include sm {
+    width: 100vw;
+    font-size: 1rem;
+  }
 }
 
 .feedback {

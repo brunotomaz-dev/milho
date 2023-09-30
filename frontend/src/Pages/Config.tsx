@@ -19,7 +19,7 @@ const Config: React.FC = () => {
 
   return (
     <main className='main-container'>
-      <section className='form score-card'>
+      <section className='config-card'>
         <h1>Quiz Bíblico</h1>
         <article className='game-explanation'>
           <p className='justify-text'>

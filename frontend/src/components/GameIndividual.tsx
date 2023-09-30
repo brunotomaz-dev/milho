@@ -35,24 +35,26 @@ const GameIndividual: React.FC = () => {
   return (
     <>
       <GameHeader />
-      <div className='game-choice-container'>
-        {gameIsOn ? (
-          <Questions
-            tier={tier}
-            setTier={setTier}
-            tierQuestions={questionsTier}
-          />
-        ) : (
-          <button
-            className='game-choice-btn'
-            onClick={() => {
-              sortQuestions(), setGameIsOn(true);
-            }}
-          >
-            Iniciar
-          </button>
-        )}
-      </div>
+      <section className='container-flex-column'>
+        <div className='game-choice-container'>
+          {gameIsOn ? (
+            <Questions
+              tier={tier}
+              setTier={setTier}
+              tierQuestions={questionsTier}
+            />
+          ) : (
+            <button
+              className='game-choice-btn'
+              onClick={() => {
+                sortQuestions(), setGameIsOn(true);
+              }}
+            >
+              Iniciar
+            </button>
+          )}
+        </div>
+      </section>
     </>
   );
 };
