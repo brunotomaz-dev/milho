@@ -29,7 +29,7 @@ describe('Testes de integração do controller NewUser', () => {
       
       chaiHttpResponse = await chai
       .request(app)
-      .post('/auth/signup')
+      .post('/user/new')
       .send(usersMock.user_2);
 
       expect(chaiHttpResponse).to.have.status(201);
@@ -47,7 +47,7 @@ describe('Testes de integração do controller NewUser', () => {
       
       chaiHttpResponse = await chai
       .request(app)
-      .post('/auth/signup')
+      .post('/user/new')
       .send({...usersMock.user_2, role: undefined});
 
       expect(chaiHttpResponse).to.have.status(201);
@@ -61,7 +61,7 @@ describe('Testes de integração do controller NewUser', () => {
 
       chaiHttpResponse = await chai
       .request(app)
-      .post('/auth/signup')
+      .post('/user/new')
       .send(usersMock.user_2);
 
       expect(chaiHttpResponse).to.have.status(409);

@@ -61,14 +61,8 @@ class UserService {
         const newUser = UserService.createUserDomain(userCreated);
         return (0, jwt_utils_1.createToken)(newUser);
     }
-    async readAll(token) {
-        if (!token)
-            throw new errors.NotFoundError('token not found');
-        const user = (0, jwt_utils_1.verifyToken)(token);
-        const userFound = await this._userModel.read(user.email);
-        if (!userFound)
-            throw new errors.NotFoundError('User not found');
-        if (userFound.role !== 'admin')
+    async readAll(role) {
+        if (role !== 'admin')
             throw new errors.UnauthorizedError('User not authorized');
         const users = await this._userModel.readAll();
         return users;

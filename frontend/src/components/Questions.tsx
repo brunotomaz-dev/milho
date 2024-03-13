@@ -29,7 +29,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    shuffleAnswers(tierQuestions[questionIndex].Options)
+    shuffleAnswers(tierQuestions[questionIndex].options)
 
   }, [tierQuestions, questionIndex]);
 
@@ -76,7 +76,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
 
   const handleAnswerClick = (event: React.MouseEvent<HTMLButtonElement>) : void => {
     const { name } = event.currentTarget;
-    if (name === tierQuestions[questionIndex].Answer) {
+    if (name === tierQuestions[questionIndex].answer) {
       calculateScore();
       questionIndex === tierQuestions.length - 1 ? tierChange() : setRenderFeedback(true);
       setRenderQuestions(false);
@@ -130,7 +130,7 @@ const Questions: React.FC<IGameQuestionsProps> = ({ tierQuestions, tier, setTier
         </section>
       )}
         <section className='form'>
-          <h2>{ tierQuestions[questionIndex].Question }</h2>
+          <h2>{ tierQuestions[questionIndex].question }</h2>
           <div className='container-question-list'>
             {answers && answers.map((answer, index) => {
 

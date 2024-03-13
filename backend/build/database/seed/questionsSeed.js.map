@@ -1,0 +1,1 @@
+{"version":3,"file":"questionsSeed.js","sourceRoot":"","sources":["../../../src/database/seed/questionsSeed.ts"],"names":[],"mappings":";;;;;AAAA,2EAAkD;AAClD,oEAAwC;AAExC,MAAM,aAAa,GAAG,uBAAS,CAAC;AAEhC,MAAM,aAAc,SAAQ,uBAAY;IAC/B,KAAK,CAAC,QAAQ;QACnB,MAAM,IAAI,CAAC,MAAM,CAAC,UAAU,CAAC,aAAa,CAAC,CAAC;IAC9C,CAAC;CACF;AAED,kBAAe,aAAa,CAAC"}
